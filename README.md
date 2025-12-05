@@ -1,47 +1,43 @@
-# UTS Deep Learning: Song Year Prediction (Regression)
+# UTS Deep Learning: Song Year Prediction (End-to-End Pipeline)
 
-Repository ini disusun sebagai tugas Ujian Tengah Semester (UTS) mata kuliah Deep Learning. Fokus tugas ini adalah membangun model **End-to-End Deep Learning** untuk tugas Regresi, yaitu memprediksi tahun rilis lagu berdasarkan fitur audio.
+Repository ini disusun sebagai tugas individu Ujian Tengah Semester (UTS) mata kuliah Deep Learning. Proyek ini bertujuan membangun pipeline **Deep Neural Network** untuk memprediksi tahun rilis lagu berdasarkan fitur audio (Regression Task).
 
-## 👤 Identitas Mahasiswa
+## 👤 Identitas
 * **Nama:** Juandra Alghifary
 * **NIM:** 1103220165
 
-## 📊 Deskripsi Dataset
-Dataset yang digunakan adalah `midterm-regresi-dataset.csv` (Audio Features).
-* **Target:** Kolom pertama (Tahun Rilis Lagu).
-* **Fitur:** 90 kolom fitur numerik (Timbre audio measures).
-* **Tipe Masalah:** Regresi (Memprediksi nilai kontinu).
+## 📂 Gambaran Proyek
+Dataset yang digunakan adalah `midterm-regresi-dataset.csv`.
+* **Input:** 90 fitur numerik (audio features dari sinyal musik).
+* **Output:** Tahun rilis lagu (Tahun 2000, 2001, dst).
+* **Tujuan:** Membuat model yang bisa menebak tahun rilis dengan error sekecil mungkin.
 
-## 🧠 Arsitektur Model (Neural Network)
-Model dibangun menggunakan framework **TensorFlow / Keras** dengan arsitektur **Multi-Layer Perceptron (MLP)**:
+## 🧠 Arsitektur Model (Deep Learning)
+Saya menggunakan framework **TensorFlow/Keras** dengan arsitektur Multi-Layer Perceptron (MLP):
+1.  **Input Layer:** 90 Neuron (sesuai jumlah fitur).
+2.  **Hidden Layer 1:** 128 Neuron (Activation: ReLU).
+3.  **Hidden Layer 2:** 64 Neuron (Activation: ReLU).
+4.  **Hidden Layer 3:** 32 Neuron (Activation: ReLU).
+5.  **Output Layer:** 1 Neuron (Linear) -> Untuk output angka kontinu (tahun).
 
-* **Input Layer:** Menerima 90 fitur audio.
-* **Hidden Layer 1:** 128 Neuron (Activation: ReLU).
-* **Hidden Layer 2:** 64 Neuron (Activation: ReLU).
-* **Hidden Layer 3:** 32 Neuron (Activation: ReLU).
-* **Output Layer:** 1 Neuron (Linear) -> Karena outputnya adalah tahun (angka).
-
-## 🛠️ Metodologi
-1.  **Preprocessing:**
-    * Load data tanpa header (`header=None`).
+## 🛠️ Alur Pengerjaan (Pipeline)
+1.  **Data Loading:** Mengimpor dataset tanpa header.
+2.  **Preprocessing:**
     * Memisahkan fitur (X) dan target (y).
-    * **Standard Scaling:** Normalisasi data agar proses training Neural Network lebih cepat dan stabil.
-    * Split Data: Train (80%) dan Test (20%).
-2.  **Training:**
-    * **Optimizer:** Adam.
-    * **Loss Function:** Mean Squared Error (MSE).
-    * **Epochs:** 20.
-3.  **Evaluasi:**
-    * Mengukur performa model menggunakan MSE Loss pada data test.
+    * **Feature Scaling:** Menggunakan `StandardScaler` untuk menstandarisasi rentang data agar training lebih stabil.
+    * **Train-Test Split:** Membagi data menjadi 80% Training dan 20% Testing.
+3.  **Modeling & Training:**
+    * Optimizer: `Adam`
+    * Loss Function: `Mean Squared Error (MSE)`
+    * Epochs: 20
+4.  **Evaluasi:** Mengukur performa akhir menggunakan data test.
 
-## 🚀 Cara Menjalankan Code
-1.  Pastikan library Deep Learning terinstall:
-    ```bash
-    pip install pandas numpy tensorflow scikit-learn matplotlib
-    ```
-2.  Buka file `tugas_dl_regression.ipynb`.
-3.  Pastikan dataset `midterm-regresi-dataset.csv` tersedia.
-4.  Run All Cells.
+## 📊 Hasil
+* **Training Loss:** Menurun signifikan dari 58,000+ ke ~140.
+* **Test Loss (MSE):** ~124.45 (Rata-rata kesalahan prediksi tahun cukup rendah).
+* Grafik training menunjukkan konvergensi yang baik (tidak underfitting/overfitting parah).
 
-## 📈 Hasil
-Model Deep Learning berhasil dilatih dan menunjukkan penurunan Loss (Error) yang signifikan dari epoch awal hingga akhir, menunjukkan model mampu mempelajari pola dari fitur audio untuk menebak tahun lagu.
+## 🚀 Cara Menjalankan
+1.  Buka file `midterm_transaction_data.ipynb` di Google Colab atau VS Code.
+2.  Pastikan file `midterm-regresi-dataset.csv` satu folder dengan notebook.
+3.  Run All Cells.
